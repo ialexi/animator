@@ -1,0 +1,3 @@
+[submodule "frameworks/animate"]
+	path = frameworks/animate
+	url = git://github.com/ialexi/animate.git
