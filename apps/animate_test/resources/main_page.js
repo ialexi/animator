@@ -40,6 +40,10 @@ AnimateTest.mainPage = SC.Page.design({
 			
 			init: function()
 			{
+				// first, disable CSS transitions, as we cannot (accurately) measure them.
+				Animate.Animatable.enableCSSTransitions = true;
+				
+				// now, continue.
 				sc_super();
 				SC.Timer.schedule({ 
 					target:this, 
@@ -52,7 +56,7 @@ AnimateTest.mainPage = SC.Page.design({
 			},
 			
 			createChildViews: function()
-			{
+			{	
 				var childViews = [];
 
 				for (var i = 0; i < AnimateTest.mainPage.numberToCreate; i++)
