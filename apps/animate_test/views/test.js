@@ -10,8 +10,8 @@
 */
 AnimateTest.TestView = SC.LabelView.extend(Animate.Animatable, {
 	transitionLayout: {
-		left: {duration: 10000},
-		top: {duration: 10000},
+		left: {duration: 5000}, // a nice lengthy animation
+		top: {duration: 5000},
 		centerX: {duration: 5000}, 	// I will be testing with these later...
 		centerY: {duration:5000} 	// ...
 	},

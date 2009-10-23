@@ -18,7 +18,7 @@
 // does not matter; the same amount of iterations are processed in JavaScript; the same
 // amount of communication between the DOM and JavaScript occurs; just less on-screen movement.
 AnimateTest.mainPage = SC.Page.design({
-	numberToCreate: 3000,
+	numberToCreate: 100,
 	mainPane: SC.MainPane.design({
 		childViews: 'toolbar animationContainer'.w(),
 		toolbar: SC.ToolbarView.design({
@@ -39,24 +39,25 @@ AnimateTest.mainPage = SC.Page.design({
 			
 			
 			init: function()
-			{
-				// first, disable CSS transitions, as we cannot (accurately) measure them.
-				Animate.Animatable.enableCSSTransitions = true;
-				
+			{	
 				// now, continue.
 				sc_super();
-				SC.Timer.schedule({ 
-					target:this, 
-					action: function(){
-						this.relayoutChildren();
-					}, 
-					interval: 12000,
-					repeats: YES
-				});
+				var self = this;
+				setTimeout(function(){ 
+					self.relayoutChildren();
+					var timer = SC.Timer.schedule({ 
+						target:self, 
+						action: function(){
+							this.relayoutChildren();
+						}, 
+						interval: 8000,
+						repeats: YES
+					}); 
+				}, 1000);
 			},
 			
 			createChildViews: function()
-			{	
+			{
 				var childViews = [];
 
 				for (var i = 0; i < AnimateTest.mainPage.numberToCreate; i++)

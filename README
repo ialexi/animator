@@ -1,7 +1,19 @@
 =============================================================================
 Project:   AnimateTest
-Copyright: ©2009 My Company, Inc.
+Copyright: ©2009 Alex Iskander and TPSi
 =============================================================================
 
-TODO: Describe Your Project
+This is a SproutCore project that tests the performance of the animation mixin.
 
+It works rather simply: the animation mixin has a lastFPS variable that holds
+the FPS for the last sequence of animations; this is an average from whenever the
+timer stops idling to when the timer starts idling again.
+
+Our appController binds to that lastFPS property and updates the label in the toolbar.
+The results are much more consistent; I'm getting consistent results even with only
+100 labels in super-fast Safari, with animations of only 5 seconds long (naturally,
+the longer the animation, the more consistent the data will be, as there will be
+more data collected).
+
+The main_page.js will create a specified number of label views (one of the earlier lines
+in the file specifies it). Each label has a number so it can easily be tracked.

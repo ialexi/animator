@@ -4,6 +4,10 @@
 // ==========================================================================
 /*globals AnimateTest */
 
+// first, disable CSS transitions, as we cannot (accurately) measure them.
+Animate.enableCSSTransitions = NO;
+
+
 AnimateTest.main = function main() {
   AnimateTest.getPath('mainPage.mainPane').append() ;
 
