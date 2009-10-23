@@ -10,13 +10,18 @@
 */
 AnimateTest.appController = SC.Object.create(
 /** @scope AnimateTest.appController.prototype */ {
+	lastFPSBinding: SC.Binding.oneWay("Animate.lastFPS"),
+	processCount: 0,
+	
 	fps: "FPS: 0",
-	fpsFromAnimateBinding: "Animate.lastFPS",
-	cc: 0,
 	
 	// calculateFPS: just gets the current FPS from the animator and formats it a bit.
+	// has to be an observer, not a property, because it changes processCount.
+	// though _why_ that should make such a difference I don't quite get. Probably obvious, but I'm missing it.
+	// If anyone knows please tell me (alexiskander)
+	// -- causes a freeze if made into a property
 	calculateFPS: function()
 	{
-		this.set("fps", Math.round(Animate.lastFPS * 10) / 10 + " / 100 (" + (this.cc++) + ")");
-	}.observes("fpsFromAnimate")
+		this.set("fps", "FPS: " + Math.round(this.get("lastFPS") * 10) / 10 + " (" + this.processCount++ + ")");
+	}.observes("lastFPS")
 }) ;

@@ -43,17 +43,28 @@ AnimateTest.mainPage = SC.Page.design({
 				// now, continue.
 				sc_super();
 				var self = this;
-				setTimeout(function(){ 
-					self.relayoutChildren();
-					var timer = SC.Timer.schedule({ 
-						target:self, 
-						action: function(){
-							this.relayoutChildren();
-						}, 
-						interval: 8000,
-						repeats: YES
-					}); 
-				}, 1000);
+				
+				var timer = SC.Timer.schedule({
+					target: this,
+					action: this.start,
+					interval: 1000,
+					repeats: NO
+				});
+			},
+			
+			start: function()
+			{
+				// do initial relayout
+				this.relayoutChildren();
+				
+				var timer = SC.Timer.schedule({ 
+					target:this, 
+					action: function(){
+						this.relayoutChildren();
+					}, 
+					interval: 8000,
+					repeats: YES
+				});
 			},
 			
 			createChildViews: function()
