@@ -9,11 +9,11 @@
 	@extends SC.View
 */
 AnimateTest.TestView = SC.LabelView.extend(Animate.Animatable, {
-	transitionLayout: {
-		left: {duration: 5000}, // a nice lengthy animation
-		top: {duration: 5000},
-		centerX: {duration: 5000}, 	// I will be testing with these later...
-		centerY: {duration:5000} 	// ...
+	transitions: {
+		left: 10, // a nice lengthy animation
+		top: 10,
+		centerX: 10, 	// I will be testing with these later...
+		centerY: 10 	// ...
 	},
 	layout: { left: 0, top: 0, width: 200, height: 18 },
 	textAlign: SC.ALIGN_CENTER,

@@ -23,62 +23,100 @@ AnimateTest.mainPage = SC.Page.design({
 		childViews: 'toolbar animationContainer'.w(),
 		toolbar: SC.ToolbarView.design({
 			layout: { top: 0, right: 0, left: 0, height: 32 },
-			childViews: ["fpsLabel"],
+			childViews: "fpsLabel autoButton runButton amountSlider amountText testCount".w(),
 			
 			// frames per second
 			fpsLabel: SC.LabelView.design({
 				layout: {left: 10, height: 24, width: 150, centerY: 0},
 				value: "Hi",
 				valueBinding: "AnimateTest.appController.fps"
+			}),
+			
+			testCount: SC.SliderView.design({
+				layout: { left: 170, width: 150, height: 24, centerY: 0 },
+				minimum: 1,
+				maximum: 20,
+				step: 1,
+				value: 1,
+				valueBinding: "AnimateTest.appController.testCount"
+			}),
+			
+			autoButton: SC.ButtonView.design({
+				layout: { right: 10, height: 24, width: 150, centerY: 0 },
+				title: "Auto"
+			}),
+			
+			runButton: SC.ButtonView.design({
+				layout: { right: 180, width: 150, height: 24, centerY: 0 },
+				title: "Run",
+				titleBinding: "AnimateTest.appController.toggleText",
+				target: "AnimateTest.appController",
+				action: "toggle"
+			}),
+			
+			amountText: SC.LabelView.design({
+				layout: { right: 560, width: 30, height: 24, centerY: 0 },
+				valueBinding: "AnimateTest.appController.numberToCreate"
+			}),
+			
+			amountSlider: SC.SliderView.design({
+				layout: { right: 340, width: 200, height: 24, centerY: 0 },
+				value: 100,
+				valueBinding: "AnimateTest.appController.numberToCreate",
+				step: 50,
+				minimum: 0,
+				maximum: 5000
 			})
 		}),
 		
 		animationContainer: SC.View.design({
 			layout: { left: 0, right: 0, top: 32, bottom: 0 },
 			backgroundColor: "#555",
+			numberToCreateBinding: "AnimateTest.appController.numberToCreate",
+			childViews: ["hello"],
 			
+			hello: SC.LabelView.design({
+				layout: { centerX: 0, centerY: 0, width: 100, height: 24 },
+				value: "Hello"
+			}),
 			
 			init: function()
 			{	
 				// now, continue.
 				sc_super();
-				var self = this;
-				
-				var timer = SC.Timer.schedule({
-					target: this,
-					action: this.start,
-					interval: 1000,
-					repeats: NO
-				});
 			},
 			
 			start: function()
 			{
-				// do initial relayout
+				// create child views
+				this.removeAllChildren();
+				this.makeChildViews();
 				this.relayoutChildren();
-				
-				var timer = SC.Timer.schedule({ 
-					target:this, 
+			},
+			
+			stop: function()
+			{
+				this.removeAllChildren();
+			},
+			
+			runTest: function()
+			{
+				var t = SC.Timer.schedule({
+					interval: 100, 
+					target: this,
 					action: function(){
 						this.relayoutChildren();
-					}, 
-					interval: 8000,
-					repeats: YES
+					}
 				});
 			},
 			
-			createChildViews: function()
+			makeChildViews: function()
 			{
-				var childViews = [];
-
-				for (var i = 0; i < AnimateTest.mainPage.numberToCreate; i++)
+				for (var i = 0; i < this.get("numberToCreate"); i++)
 				{
 					var view = this.createChildView(AnimateTest.TestView, {value: "" + i})
-					childViews.push(view);
+					this.appendChild(view);
 				}
-
-				this.set("childViews", childViews);
-				this.relayoutChildren();
 			},
 			
 			relayoutChildren: function()
@@ -104,7 +142,7 @@ AnimateTest.mainPage = SC.Page.design({
 					x += 30;
 					
 					// 20px per row.
-					if (x > 1500)
+					if (x >  1500)
 						x = 0, y += 20;
 				}
 			}
