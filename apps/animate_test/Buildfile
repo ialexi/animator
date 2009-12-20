@@ -1,1 +1,1 @@
-config :animate_test, :required => [:sproutcore, :animate]
+config :animate_test, :required => [:sproutcore, "sproutcore/animation"]

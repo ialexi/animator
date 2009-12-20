@@ -8,7 +8,7 @@
 	A simple test view.
 	@extends SC.View
 */
-AnimateTest.TestView = SC.LabelView.extend(Animate.Animatable, {
+AnimateTest.TestView = SC.LabelView.extend(SC.Animatable, {
 	transitions: {
 		left: 10, // a nice lengthy animation
 		top: 10,

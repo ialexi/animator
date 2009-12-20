@@ -10,7 +10,7 @@
 */
 AnimateTest.appController = SC.Object.create(
 /** @scope AnimateTest.appController.prototype */ {
-	lastFPSBinding: SC.Binding.oneWay("Animate.lastFPS"),
+	lastFPSBinding: SC.Binding.oneWay("SC.Animatable.stats.lastFPS"),
 	
 	processCount: 0,
 	

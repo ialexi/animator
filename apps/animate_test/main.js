@@ -5,7 +5,7 @@
 /*globals AnimateTest */
 
 // first, disable CSS transitions, as we cannot (accurately) measure them.
-Animate.enableCSSTransitions = NO;
+SC.Animatable.enableCSSTransitions = NO;
 
 
 AnimateTest.main = function main() {
